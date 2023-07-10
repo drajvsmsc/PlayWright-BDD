@@ -12,6 +12,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.testng.Assert;
 
+import java.io.IOException;
+
 import static StepDefinitions.DefaultStepDefinition.currentIterationMap;
 
 
@@ -30,7 +32,7 @@ public class MagentoDef {
 
 
     @Then("use selects Jackets")
-    public void useSelectsJackets() throws InterruptedException {
+    public void useSelectsJackets() throws InterruptedException, IOException {
         mmt.ui();
         Thread.sleep(2000);
        // Assert.assertEquals(mag.loc2.innerText(),"Jackets");
