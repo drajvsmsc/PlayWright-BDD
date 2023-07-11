@@ -1,5 +1,8 @@
 package base;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
+import extentlisteners.ExtentListeners;
+import extentlisteners.ExtentManager;
 import org.testng.Assert;
 
 import com.microsoft.playwright.Page;
@@ -8,6 +11,8 @@ import com.microsoft.playwright.options.SelectOption;
 
 
 import Utils.PlaywrightDriver;
+
+import java.io.IOException;
 
 public class BasePage {
 
@@ -24,13 +29,21 @@ public class BasePage {
     }
 
 
-    public void click(String locatorKey) {
+    public void clickElement(String locatorKey,String Description) throws IOException {
 
         try {
             page.locator(locatorKey).click();
+            ExtentListeners.getExtent().info("Clicking on an Element : " + Description);
+            ExtentManager.captureScreenshot();
+            ExtentListeners.getExtent().info("<b><font color=green>" + "Screenshot of Action" + "</font></b><br>",
+                    MediaEntityBuilder.createScreenCaptureFromPath(ExtentManager.fileNameSS).build());
         } catch (Throwable t) {
 
             Assert.fail(t.getMessage());
+            ExtentListeners.getExtent().info("Clicking on an Element : " + "{locatorKey}");
+            ExtentManager.captureScreenshot();
+            ExtentListeners.getExtent().fail("<b><font color=green>" + "Screenshot of Action" + "</font></b><br>",
+                    MediaEntityBuilder.createScreenCaptureFromPath(ExtentManager.fileNameSS).build());
         }
     }
 

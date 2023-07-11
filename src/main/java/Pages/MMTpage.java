@@ -1,7 +1,9 @@
 package Pages;
 
 import Utils.PlaywrightDriver;
+import base.BasePage;
 import com.aventstack.extentreports.MediaEntityBuilder;
+import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Page;
 import extentlisteners.ExtentListeners;
 import extentlisteners.ExtentManager;
@@ -9,7 +11,7 @@ import io.cucumber.java.eo.Se;
 
 import java.io.IOException;
 
-public class MMTpage {
+public class MMTpage extends BasePage {
     Page page = PlaywrightDriver.getPage();
 
     public String ClosePopPAge ="//*[@class='close']";
@@ -28,16 +30,8 @@ public class MMTpage {
 
     public void ui() throws InterruptedException, IOException {
         Thread.sleep(1000);
-//        page.hover(ClosePopPAge);
-//      page.click(ClosePopPAge);
-//        page.click(Flighticon);
         page.click(FromCity);
-        page.click(EnterFromCity);
-        ExtentListeners.getExtent().info("Clicking on an Element : " + EnterFromCity);
-        ExtentManager.captureScreenshot();
-        ExtentListeners.getExtent().fail("<b><font color=green>" + "Screenshot of Action" + "</font></b><br>",
-//                ExtentListeners.getExtent().addScreenCaptureFromPath(ExtentManager.fileNameSS);
-                MediaEntityBuilder.createScreenCaptureFromPath(ExtentManager.fileNameSS).build());
+        clickElement(EnterFromCity,"EnterFromCity");
         page.fill(EnterFromCity,"BOM");
         page.locator(SelectCity).first().click();
         Thread.sleep(1000);
@@ -47,5 +41,8 @@ public class MMTpage {
         Thread.sleep(1000);
         page.locator(SelectCity).first().click();
         Thread.sleep(1000);
+
+
+
     }
 }
